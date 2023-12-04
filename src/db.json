@@ -1,0 +1,145 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Remove leaves from gutters and downspouts",
+      "description": "Clear away accumulated leaves from gutters and downspouts to prevent water damage and maintain proper drainage.",
+      "priority": "MEDIUM",
+      "due": "2023-12-12T16:22:31.617394+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 2,
+      "title": "Sweep walkways and patios",
+      "description": "Clear walkways and patios of debris, fallen leaves, and dirt to maintain a clean and inviting outdoor space.",
+      "priority": "MEDIUM",
+      "due": "2023-12-05T16:22:31.617400+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 3,
+      "title": "Trim overgrown plants and shrubs",
+      "description": "Shape and maintain overgrown plants and shrubs to enhance the appearance of the garden and prevent them from becoming unruly.",
+      "priority": "MEDIUM",
+      "due": "2023-12-04T16:22:31.617406+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 4,
+      "title": "Remove weeds from flower beds and garden areas",
+      "description": "Eliminate weeds from flower beds, garden areas, and around plants to prevent competition for nutrients and water.",
+      "priority": "HIGH",
+      "due": "2023-12-04T16:22:31.617412+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 5,
+      "title": "Clean and disinfect garden tools and equipment",
+      "description": "Clean and disinfect garden tools and equipment to prevent the spread of diseases and pests, and extend the lifespan of tools.",
+      "priority": "LOW",
+      "due": "2023-12-07T16:22:31.617418+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 6,
+      "title": "Remove debris and clutter from garden areas",
+      "description": "Clear away debris, fallen branches, and clutter from garden areas to maintain a neat and organized appearance.",
+      "priority": "MEDIUM",
+      "due": "2023-12-04T16:22:31.617424+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 7,
+      "title": "Dispose of garden waste properly",
+      "description": "Collect and dispose of garden waste, such as leaves, clippings, and weeds, in a responsible manner to maintain a tidy environment.",
+      "priority": "LOW",
+      "isCompleted": false
+    },
+    {
+      "id": 8,
+      "title": "Check and repair garden fences and structures",
+      "description": "Inspect garden fences, trellises, and other structures for damage or wear and tear, and make necessary repairs to maintain safety and aesthetic appeal.",
+      "priority": "MEDIUM",
+      "due": "2023-12-10T16:22:31.617436+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 9,
+      "title": "Empty and clean compost bins",
+      "description": "Empty and clean compost bins regularly to maintain proper decomposition and prevent the accumulation of pests and unpleasant odors.",
+      "priority": "LOW",
+      "due": "2023-12-01T16:22:31.617442+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 10,
+      "title": "Document and plan for seasonal garden maintenance tasks",
+      "description": "Maintain a record of completed garden",
+      "priority": "LOW",
+      "due": "2023-12-04T16:22:31.617484+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 11,
+      "title": "Water plants and monitor their health",
+      "description": "Provide adequate water to plants, taking into account \"their specific needs\" and \"weather conditions\", and regularly check for signs of stress or disease.",
+      "priority": "HIGH",
+      "due": "2023-12-04T16:22:31.617448+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 12,
+      "title": "Fertilize plants as needed",
+      "description": "Apply fertilizer to plants according to \"their specific requirements\" and \"growth stages\" to promote healthy growth and vibrant blooms.",
+      "priority": "MEDIUM",
+      "due": "2023-12-04T16:22:31.617454+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 13,
+      "title": "Deadhead spent flowers",
+      "description": "Remove spent flowers from plants to encourage continued blooming, enhance \"the overall appearance\" of the garden, and prevent seed formation.",
+      "due": "2023-12-04T16:22:31.617460+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 14,
+      "title": "Mulch around plants to conserve moisture and suppress weeds",
+      "description": "Apply a layer of mulch around plants to retain moisture, reduce evaporation, suppress weed growth, and maintain \"a neat and tidy garden bed\".",
+      "priority": "MEDIUM",
+      "due": "2023-12-04T16:22:31.617466+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 15,
+      "title": "Inspect plants for signs of pests and diseases",
+      "description": "Regularly inspect plants for signs of pests, such as insects or mites, and diseases, such as discoloration or wilting, to take timely action to protect \"the garden's health\".",
+      "priority": "HIGH",
+      "due": "2023-12-04T16:22:31.617472+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 16,
+      "title": "Prune plants to maintain their shape and promote growth",
+      "description": "Prune plants selectively to remove dead or diseased branches, control size and shape, encourage new growth, and enhance \"the overall appearance\" of the garden.",
+      "priority": "MEDIUM",
+      "isCompleted": false
+    },
+    {
+      "id": 17,
+      "title": "Protect plants from harsh weather conditions",
+      "description": "Take appropriate measures to protect plants from extreme temperatures, strong winds, or excessive rainfall, such as covering them with frost blankets or providing windbreaks.",
+      "priority": "MEDIUM",
+      "due": "2023-12-04T16:22:31.617484+08:00",
+      "isCompleted": false
+    },
+    {
+      "id": 18,
+      "title": "Clean and organize garden tools and equipment storage area",
+      "description": "Maintain a clean and organized storage area for garden tools and equipment to prevent damage, extend \"their lifespan\", and ensure easy access when needed.",
+      "priority": "LOW",
+      "due": "2023-12-04T16:22:31.617490+08:00",
+      "isCompleted": false
+    }
+  ]
+}
