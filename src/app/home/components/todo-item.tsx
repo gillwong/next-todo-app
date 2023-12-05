@@ -24,11 +24,11 @@ export const todoSchema = z
 
 export type Todo = z.infer<typeof todoSchema>;
 
-interface TodoProps extends HTMLAttributes<HTMLElement> {
+interface TodoItemProps extends HTMLAttributes<HTMLElement> {
   todo: Todo;
 }
 
-export default function TodoItem({ className, todo, ...props }: TodoProps) {
+export default function TodoItem({ className, todo, ...props }: TodoItemProps) {
   return (
     <li
       className={cn("flex py-4 px-2 justify-between space-x-4", className)}

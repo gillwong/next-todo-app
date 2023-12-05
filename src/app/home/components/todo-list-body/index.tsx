@@ -29,7 +29,7 @@ export default async function TodoListBody() {
     <>
       {todos.map((todo) => (
         <Fragment key={todo.id}>
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem todo={todo} />
           <Separator />
         </Fragment>
       ))}

@@ -49,9 +49,6 @@ export default function NavBar({
               <NavButton href="/new">New</NavButton>
             </SheetClose>
             <SheetClose asChild>
-              <NavButton href="/starred">Starred</NavButton>
-            </SheetClose>
-            <SheetClose asChild>
               <NavButton href="/completed">Completed</NavButton>
             </SheetClose>
           </div>
