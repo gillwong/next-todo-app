@@ -5,7 +5,7 @@ import { z } from "zod";
 const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? ""}/api/todos`;
 
 async function fakeLoading() {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
 }
 
 export const todoSchema = z
