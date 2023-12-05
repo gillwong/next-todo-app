@@ -11,6 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import NavButton from "./nav-button";
+import Link from "next/link";
 
 export default function NavBar({
   className,
@@ -24,10 +25,14 @@ export default function NavBar({
       )}
       {...props}
     >
-      <h1 className="text-2xl font-bold">Next Todo App</h1>
+      <h1 className="text-2xl font-bold">
+        <Link className="hover:underline underline-offset-2" href="/home">
+          Next Todo App
+        </Link>
+      </h1>
       <Sheet>
         <SheetTrigger className="relative" asChild>
-          <Button variant="outline" className="p-2">
+          <Button variant="outline" size="icon" className="aspect-square">
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
@@ -38,7 +43,7 @@ export default function NavBar({
           <Separator className="my-3" />
           <div className="space-y-0">
             <SheetClose asChild>
-              <NavButton href="/">Home</NavButton>
+              <NavButton href="/home">Home</NavButton>
             </SheetClose>
             <SheetClose asChild>
               <NavButton href="/new">New</NavButton>

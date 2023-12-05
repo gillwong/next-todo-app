@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { todoSchema } from "@/app/home/components/todo-item";
+import { Todo, todoSchema } from "@/app/home/components/todo-item";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -40,14 +40,16 @@ dayjs.extend(localizedFormat);
 
 const formSchema = todoSchema.omit({ id: true, isCompleted: true });
 
-export default function TodoForm() {
+export default function EditTodoForm({ todo }: { todo: Todo }) {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: todo.title,
+      description: todo.description ?? "",
+      priority: todo.priority,
+      due: dayjs(todo.due),
     },
   });
 
@@ -56,8 +58,11 @@ export default function TodoForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       router.push("/home");
-      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/todos`, values);
-      toast({ description: "Todo created successfully." });
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/todos/${todo.id}`,
+        values
+      );
+      toast({ description: "Todo edited successfully." });
     } catch (error) {
       toast({
         variant: "destructive",
@@ -88,7 +93,7 @@ export default function TodoForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Priority</FormLabel>
-              <Select onValueChange={field.onChange}>
+              <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select todo priority" />
@@ -160,7 +165,16 @@ export default function TodoForm() {
           )}
         />
 
-        <Button type="submit">Add Todo</Button>
+        <div className="flex justify-between">
+          <Button type="submit">Save Todo</Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => router.back()}
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
     </Form>
   );

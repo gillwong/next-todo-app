@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import TodoListBody from "./todo-list-body";
-import Loading from "./todo-list-body/loading";
+import TodoListBodyLoading from "./todo-list-body/loading";
 
 export default function TodoList({
   className,
@@ -21,7 +21,7 @@ export default function TodoList({
         </div>
       </li>
       <Separator />
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<TodoListBodyLoading />}>
         <TodoListBody />
       </Suspense>
     </ul>

@@ -1,14 +1,10 @@
-"use client";
-
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { HTMLAttributes, useState } from "react";
 import PriorityIndicator from "./priority-indicator";
 import dayjs, { Dayjs } from "dayjs";
-import axios from "axios";
 import { z } from "zod";
 import Link from "next/link";
+import TodoCheckbox from "@/app/components/todo-checkbox";
 
 export const todoSchema = z
   .object({
@@ -32,48 +28,20 @@ interface TodoProps extends HTMLAttributes<HTMLElement> {
   todo: Todo;
 }
 
-async function setTodoCompletion(id: number, isCompleted: boolean) {
-  try {
-    let response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/todos/${id}`
-    );
-    const currentTodo = response.data as Todo;
-    response = await axios.put(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/todos/${id}`,
-      {
-        ...currentTodo,
-        isCompleted,
-      }
-    );
-  } catch (error) {
-    console.error({ error });
-  }
-}
-
 export default function TodoItem({ className, todo, ...props }: TodoProps) {
-  const [isCompleted, setIsCompleted] = useState(todo.isCompleted);
-
   return (
     <li
       className={cn("flex py-4 px-2 justify-between space-x-4", className)}
       {...props}
     >
       <div className="flex space-x-4 items-center">
-        <Checkbox
-          id={todo.id.toString()}
-          onClick={() => {
-            setTodoCompletion(todo.id, !isCompleted);
-            setIsCompleted((state) => !state);
-          }}
-          checked={isCompleted}
-        />
+        <TodoCheckbox todo={todo} />
         <Link
           className="text-sm font-medium hover:underline underline-offset-2"
-          href="/home"
+          href={`/todo/${todo.id}/view`}
         >
           {todo.title}
         </Link>
-        {/* <Label htmlFor={todo.id.toString()}>{todo.title}</Label> */}
       </div>
       <div className="flex space-x-2 items-center">
         <p className="text-sm">

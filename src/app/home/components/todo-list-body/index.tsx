@@ -1,4 +1,4 @@
-import TodoItem, { Todo } from "../todo-item";
+import TodoItem, { Todo, todoSchema } from "../todo-item";
 import { Fragment } from "react";
 import { Separator } from "@/components/ui/separator";
 import axios from "axios";

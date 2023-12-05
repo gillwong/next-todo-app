@@ -1,3 +1,5 @@
-export default function TodoPage({ params }: { params: { id: string } }) {
-  return <main className="px-4 mt-3"></main>;
+import { permanentRedirect } from "next/navigation";
+
+export default function RedirectToView({ params }: { params: { id: string } }) {
+  permanentRedirect(`/todo/${params.id}/view`);
 }
