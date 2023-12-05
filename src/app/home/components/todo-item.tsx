@@ -7,15 +7,26 @@ import { HTMLAttributes, useState } from "react";
 import PriorityIndicator from "./priority-indicator";
 import dayjs, { Dayjs } from "dayjs";
 import axios from "axios";
+import { z } from "zod";
+import Link from "next/link";
 
-export type Todo = {
-  id: number;
-  title: string;
-  isCompleted: boolean;
-  description?: string;
-  due?: Dayjs;
-  priority?: "HIGH" | "MEDIUM" | "LOW";
-};
+export const todoSchema = z
+  .object({
+    id: z.number().positive().finite(),
+    title: z
+      .string({ required_error: "Title is required" })
+      .trim()
+      .min(1, { message: "Title must not be blank" })
+      .max(140, { message: "Title must be less than 140 characters" }),
+    isCompleted: z.boolean().default(false),
+    description: z.string(),
+    // https://github.com/colinhacks/zod/discussions/1259
+    due: z.instanceof(dayjs as unknown as typeof Dayjs),
+    priority: z.enum(["HIGH", "MEDIUM", "LOW"]),
+  })
+  .partial({ description: true, due: true, priority: true });
+
+export type Todo = z.infer<typeof todoSchema>;
 
 interface TodoProps extends HTMLAttributes<HTMLElement> {
   todo: Todo;
@@ -34,8 +45,6 @@ async function setTodoCompletion(id: number, isCompleted: boolean) {
         isCompleted,
       }
     );
-    const savedTodo = response.data as Todo;
-    console.log({ todo: savedTodo });
   } catch (error) {
     console.error({ error });
   }
@@ -58,7 +67,13 @@ export default function TodoItem({ className, todo, ...props }: TodoProps) {
           }}
           checked={isCompleted}
         />
-        <Label htmlFor={todo.id.toString()}>{todo.title}</Label>
+        <Link
+          className="text-sm font-medium hover:underline underline-offset-2"
+          href="/home"
+        >
+          {todo.title}
+        </Link>
+        {/* <Label htmlFor={todo.id.toString()}>{todo.title}</Label> */}
       </div>
       <div className="flex space-x-2 items-center">
         <p className="text-sm">

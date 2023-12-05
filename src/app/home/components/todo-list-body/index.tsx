@@ -5,6 +5,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 
 async function getTodos(): Promise<Todo[]> {
+  // fake loading
   await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     const response = await axios.get(

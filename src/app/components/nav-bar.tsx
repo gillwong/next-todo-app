@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -36,10 +37,18 @@ export default function NavBar({
           </SheetHeader>
           <Separator className="my-3" />
           <div className="space-y-0">
-            <NavButton href="/">Home</NavButton>
-            <NavButton href="/new">New</NavButton>
-            <NavButton href="/starred">Starred</NavButton>
-            <NavButton href="/completed">Completed</NavButton>
+            <SheetClose asChild>
+              <NavButton href="/">Home</NavButton>
+            </SheetClose>
+            <SheetClose asChild>
+              <NavButton href="/new">New</NavButton>
+            </SheetClose>
+            <SheetClose asChild>
+              <NavButton href="/starred">Starred</NavButton>
+            </SheetClose>
+            <SheetClose asChild>
+              <NavButton href="/completed">Completed</NavButton>
+            </SheetClose>
           </div>
         </SheetContent>
       </Sheet>
