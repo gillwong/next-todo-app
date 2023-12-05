@@ -37,6 +37,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -45,7 +46,12 @@
     "eslint-config-next": "14.0.3",
     "eslint-plugin-unused-imports": "^3.0.0",
     "postcss": "^8",
+    "prettier": "3.1.0",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20.1.0",
+    "yarn": ">=1.22.0"
   }
 }

@@ -1,8 +1,10 @@
-import { Todo } from "@/app/home/components/todo-item";
-import { Separator } from "@/components/ui/separator";
 import { ClassValue } from "clsx";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
+
+import { Todo } from "@/lib/todos";
+
+import { Separator } from "@/components/ui/separator";
 
 dayjs.extend(localizedFormat);
 

@@ -1,8 +1,10 @@
-import { Todo } from "@/app/home/components/todo-item";
+import { Edit } from "lucide-react";
+import Link from "next/link";
+
+import { Todo } from "@/lib/todos";
 
 import { Button } from "@/components/ui/button";
-import { Edit, Trash } from "lucide-react";
-import Link from "next/link";
+
 import TodoDeleteButton from "./todo-delete-button";
 
 export default function TodoActions({ todo }: { todo: Todo }) {

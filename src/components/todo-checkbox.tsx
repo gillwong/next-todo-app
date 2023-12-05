@@ -1,9 +1,10 @@
 "use client";
 
-import { Todo } from "@/app/home/components/todo-item";
-import { Checkbox } from "@/components/ui/checkbox";
-import { setTodoCompletion } from "@/lib/todos";
 import { useState } from "react";
+
+import { Todo, setTodoCompletion } from "@/lib/todos";
+
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function TodoCheckbox({
   className,

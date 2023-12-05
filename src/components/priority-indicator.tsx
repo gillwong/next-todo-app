@@ -1,12 +1,14 @@
+import { ClassValue } from "clsx";
+
+import { Todo } from "@/lib/todos";
+import { cn } from "@/lib/utils";
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Todo } from "./todo-item";
-import { ClassValue } from "clsx";
-import { cn } from "@/lib/utils";
 
 interface PriorityIndicatorProps {
   priority: Todo["priority"];

@@ -1,7 +1,8 @@
-import { Todo } from "@/app/home/components/todo-item";
-import { getTodo } from "@/lib/todos";
 import { notFound } from "next/navigation";
-import EditTodoForm from "./components/todo-edit-form";
+
+import { Todo, getTodo } from "@/lib/todos";
+
+import EditTodoForm from "@/components/todo-forms/todo-edit-form";
 
 export default async function EditTodoPage({
   params,

@@ -1,36 +1,34 @@
 "use client";
 
-import { Todo } from "@/app/home/components/todo-item";
-import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
-import CompletedTodoItem from "./completed-todo-item";
 import dayjs from "dayjs";
-import TodoListBodyLoading from "@/app/home/components/todo-list-body/loading";
+import { Fragment, useEffect, useState } from "react";
+
+import { Todo, getAllTodos } from "@/lib/todos";
+
+import TodoListBodyLoading from "@/components/todo-list/todo-list-body/loading";
 import { Separator } from "@/components/ui/separator";
+
+import { useToast } from "../ui/use-toast";
+import CompletedTodoItem from "./completed-todo-item";
 
 export default function CompletedTodoListBody() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
-    async function fetchData(): Promise<Todo[]> {
-      // fake loading
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/todos`
-        );
-        return response.data as Todo[];
-      } catch (error) {
-        return [];
-      }
-    }
-
     setIsLoading(true);
-    fetchData()
+    getAllTodos()
       .then((data) => {
-        console.log({ data });
         setTodos(data as Todo[]);
+      })
+      .catch((error: Error) => {
+        setTodos([]);
+        toast({
+          variant: "destructive",
+          title: "Error!",
+          description: error.message,
+        });
       })
       .finally(() => setIsLoading(false));
   }, []);
@@ -45,8 +43,6 @@ export default function CompletedTodoListBody() {
       if (!b.due) return -1;
       return dayjs(a.due).isAfter(dayjs(b.due)) ? 1 : -1;
     });
-
-  console.log({ todos, filteredTodos });
 
   return (
     <>

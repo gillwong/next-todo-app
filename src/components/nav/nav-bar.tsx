@@ -1,3 +1,8 @@
+import { Menu } from "lucide-react";
+import Link from "next/link";
+
+import { cn } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -8,10 +13,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
-import { Menu } from "lucide-react";
+
 import NavButton from "./nav-button";
-import Link from "next/link";
 
 export default function NavBar({
   className,
@@ -21,7 +24,7 @@ export default function NavBar({
     <nav
       className={cn(
         "flex items-center justify-between px-4 py-2 backdrop-blur-lg bg-white/60 border-b border-slate-200",
-        className
+        className,
       )}
       {...props}
     >

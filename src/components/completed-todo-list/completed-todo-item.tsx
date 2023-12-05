@@ -1,13 +1,14 @@
 "use client";
 
-import PriorityIndicator from "@/app/home/components/priority-indicator";
-import { Todo } from "@/app/home/components/todo-item";
-import { Checkbox } from "@/components/ui/checkbox";
-import { setTodoCompletion } from "@/lib/todos";
-import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { Dispatch, HTMLAttributes, SetStateAction } from "react";
+
+import { Todo, setTodoCompletion } from "@/lib/todos";
+import { cn } from "@/lib/utils";
+
+import PriorityIndicator from "@/components/priority-indicator";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface CompletedTodoItemProps extends HTMLAttributes<HTMLElement> {
   todo: Todo;
@@ -35,8 +36,8 @@ export default function CompletedTodoItem({
               state.map((el) =>
                 el.id !== todo.id
                   ? el
-                  : ({ ...el, isCompleted: newIsCompleted } as Todo)
-              )
+                  : ({ ...el, isCompleted: newIsCompleted } as Todo),
+              ),
             );
           }}
           checked={todo.isCompleted}

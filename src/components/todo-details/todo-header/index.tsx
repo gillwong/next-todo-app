@@ -1,7 +1,9 @@
-import { Todo } from "@/app/home/components/todo-item";
-import { getTodo } from "@/lib/todos";
 import { notFound } from "next/navigation";
-import TodoCheckbox from "@/app/components/todo-checkbox";
+
+import { Todo } from "@/lib/todos";
+import { getTodo } from "@/lib/todos";
+
+import TodoCheckbox from "@/components/todo-checkbox";
 
 export default async function TodoHeader({ todoId }: { todoId: number }) {
   let todo: Todo;

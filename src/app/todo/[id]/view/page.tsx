@@ -1,8 +1,9 @@
-import TodoBody from "./components/todo-body";
-import TodoActions from "./components/todo-actions";
 import { notFound } from "next/navigation";
-import { getTodo } from "@/lib/todos";
-import { Todo } from "@/app/home/components/todo-item";
+
+import { Todo, getTodo } from "@/lib/todos";
+
+import TodoActions from "@/components/todo-details/todo-actions";
+import TodoBody from "@/components/todo-details/todo-body";
 
 export default async function TodoViewPage({
   params,

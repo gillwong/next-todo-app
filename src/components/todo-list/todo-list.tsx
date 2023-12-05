@@ -1,10 +1,14 @@
+import { HTMLAttributes, Suspense } from "react";
+
+import { cn } from "@/lib/utils";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
-import { HTMLAttributes } from "react";
-import CompletedTodoListBody from "./completed-todo-list-body";
 
-export default function CompletedTodoList({
+import TodoListBody from "./todo-list-body";
+import TodoListBodyLoading from "./todo-list-body/loading";
+
+export default function TodoList({
   className,
   ...props
 }: HTMLAttributes<HTMLUListElement>) {
@@ -20,7 +24,9 @@ export default function CompletedTodoList({
         </div>
       </li>
       <Separator />
-      <CompletedTodoListBody />
+      <Suspense fallback={<TodoListBodyLoading />}>
+        <TodoListBody />
+      </Suspense>
     </ul>
   );
 }

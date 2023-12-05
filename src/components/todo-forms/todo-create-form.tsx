@@ -1,5 +1,18 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import { CalendarIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Todo, createTodo, todoSchema } from "@/lib/todos";
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -8,48 +21,34 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Todo, todoSchema } from "@/app/home/components/todo-item";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-  SelectItem,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 
 dayjs.extend(localizedFormat);
 
 const formSchema = todoSchema.omit({ id: true, isCompleted: true });
 
-export default function EditTodoForm({ todo }: { todo: Todo }) {
+export default function TodoCreateForm() {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: todo.title,
-      description: todo.description ?? "",
-      priority: todo.priority,
-      due: dayjs(todo.due),
+      title: "",
+      description: "",
     },
   });
 
@@ -58,11 +57,8 @@ export default function EditTodoForm({ todo }: { todo: Todo }) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       router.push("/home");
-      await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/todos/${todo.id}`,
-        values
-      );
-      toast({ description: "Todo edited successfully." });
+      await createTodo(values as Omit<Todo, "id">);
+      toast({ description: "Todo created successfully." });
     } catch (error) {
       toast({
         variant: "destructive",
@@ -93,7 +89,7 @@ export default function EditTodoForm({ todo }: { todo: Todo }) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Priority</FormLabel>
-              <Select value={field.value} onValueChange={field.onChange}>
+              <Select onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select todo priority" />
@@ -123,7 +119,7 @@ export default function EditTodoForm({ todo }: { todo: Todo }) {
                         variant={"outline"}
                         className={cn(
                           "w-full pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
+                          !field.value && "text-muted-foreground",
                         )}
                       >
                         {field.value ? (
@@ -165,16 +161,7 @@ export default function EditTodoForm({ todo }: { todo: Todo }) {
           )}
         />
 
-        <div className="flex justify-between">
-          <Button type="submit">Save Todo</Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => router.back()}
-          >
-            Cancel
-          </Button>
-        </div>
+        <Button type="submit">Add Todo</Button>
       </form>
     </Form>
   );
