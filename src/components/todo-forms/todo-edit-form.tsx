@@ -60,6 +60,7 @@ export default function EditTodoForm({ todo }: { todo: Todo }) {
     try {
       router.push("/home");
       await updateTodo(todo.id, values as Omit<Todo, "id">);
+      router.refresh();
       toast({ description: "Todo edited successfully." });
     } catch (error) {
       console.error({ error });

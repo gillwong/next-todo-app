@@ -1,6 +1,5 @@
 import axios from "axios";
 import dayjs, { Dayjs } from "dayjs";
-import { cache } from "react";
 import { z } from "zod";
 
 const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? ""}/api/todos`;
@@ -27,7 +26,7 @@ export const todoSchema = z
 
 export type Todo = z.infer<typeof todoSchema>;
 
-export const getAllTodos = cache(async (): Promise<Todo[]> => {
+export async function getAllTodos(): Promise<Todo[]> { 
   await fakeLoading();
   try {
     const response = await axios.get(`${baseUrl}/`);
@@ -35,7 +34,7 @@ export const getAllTodos = cache(async (): Promise<Todo[]> => {
   } catch (error) {
     throw new Error("Error occurred while getting todos");
   }
-});
+}
 
 export async function getTodo(id: number): Promise<Todo> {
   await fakeLoading();

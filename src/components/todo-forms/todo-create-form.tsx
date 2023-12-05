@@ -58,6 +58,7 @@ export default function TodoCreateForm() {
     try {
       router.push("/home");
       await createTodo(values as Omit<Todo, "id">);
+      router.refresh();
       toast({ description: "Todo created successfully." });
     } catch (error) {
       toast({

@@ -6,8 +6,6 @@ import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
 
-export const revalidate = 1;
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

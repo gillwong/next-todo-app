@@ -28,6 +28,7 @@ export default function TodoDeleteButton({ todo }: { todo: Todo }) {
     try {
       router.push("/home");
       await deleteTodo(todo.id);
+      router.refresh();
       toast({ description: "Todo deleted successfully." });
     } catch (error) {
       toast({
