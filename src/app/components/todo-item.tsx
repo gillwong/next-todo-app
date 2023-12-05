@@ -23,14 +23,19 @@ interface TodoProps extends HTMLAttributes<HTMLElement> {
 
 async function setTodoCompletion(id: number, isCompleted: boolean) {
   try {
-    const response = await axios.get(
+    let response = await axios.get(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/todos/${id}`
     );
     const currentTodo = response.data as Todo;
-    await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/todos/${id}`, {
-      ...currentTodo,
-      isCompleted,
-    });
+    response = await axios.put(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/todos/${id}`,
+      {
+        ...currentTodo,
+        isCompleted,
+      }
+    );
+    const savedTodo = response.data as Todo;
+    console.log({ todo: savedTodo });
   } catch (error) {
     console.error({ error });
   }
