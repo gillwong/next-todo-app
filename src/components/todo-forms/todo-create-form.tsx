@@ -8,9 +8,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Todo, createTodo, todoSchema } from "@/lib/todos";
-import { cn } from "@/lib/utils";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -37,6 +34,10 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 
+import { type Todo, todoSchema } from "@/server/models/todo";
+import todoServices from "@/utils/todo/services";
+import { cn } from "@/utils/utils";
+
 dayjs.extend(localizedFormat);
 
 const formSchema = todoSchema.omit({ id: true, isCompleted: true });
@@ -56,7 +57,7 @@ export default function TodoCreateForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await createTodo(values as Omit<Todo, "id">);
+      await todoServices.create(values as Omit<Todo, "id">);
       router.push("/home");
       router.refresh();
       toast({ description: "Todo created successfully." });

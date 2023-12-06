@@ -8,9 +8,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Todo, todoSchema, updateTodo } from "@/lib/todos";
-import { cn } from "@/lib/utils";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -37,11 +34,15 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 
+import { type Todo, type TodoJSON, todoSchema } from "@/server/models/todo";
+import todoServices from "@/utils/todo/services";
+import { cn } from "@/utils/utils";
+
 dayjs.extend(localizedFormat);
 
 const formSchema = todoSchema.omit({ id: true, isCompleted: true });
 
-export default function EditTodoForm({ todo }: { todo: Todo }) {
+export default function EditTodoForm({ todo }: { todo: Todo | TodoJSON }) {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,7 +59,7 @@ export default function EditTodoForm({ todo }: { todo: Todo }) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await updateTodo(todo.id, values as Omit<Todo, "id">);
+      await todoServices.update(todo.id, values as Omit<Todo, "id">);
       router.push("/home");
       router.refresh();
       toast({ description: "Todo edited successfully." });

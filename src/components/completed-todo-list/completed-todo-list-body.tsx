@@ -3,10 +3,11 @@
 import dayjs from "dayjs";
 import { Fragment, useEffect, useState } from "react";
 
-import { Todo, getAllTodos } from "@/lib/todos";
-
 import TodoListBodyLoading from "@/components/todo-list/todo-list-body/loading";
 import { Separator } from "@/components/ui/separator";
+
+import { type Todo } from "@/server/models/todo";
+import todoServices from "@/utils/todo/services";
 
 import { useToast } from "../ui/use-toast";
 import CompletedTodoItem from "./completed-todo-item";
@@ -18,7 +19,8 @@ export default function CompletedTodoListBody() {
 
   useEffect(() => {
     setIsLoading(true);
-    getAllTodos()
+    todoServices
+      .getAll()
       .then((data) => {
         setTodos(data as Todo[]);
       })

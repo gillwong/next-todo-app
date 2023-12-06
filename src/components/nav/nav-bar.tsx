@@ -1,8 +1,6 @@
 import { Menu } from "lucide-react";
 import Link from "next/link";
 
-import { cn } from "@/lib/utils";
-
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -13,6 +11,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+
+import { cn } from "@/utils/utils";
 
 import NavButton from "./nav-button";
 

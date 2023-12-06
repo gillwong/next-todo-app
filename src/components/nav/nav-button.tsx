@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Url } from "url";
 
-import { cn } from "@/lib/utils";
-
 import { Button, ButtonProps } from "@/components/ui/button";
+
+import { cn } from "@/utils/utils";
 
 interface NavButtonProps extends ButtonProps {
   href: string | Url;

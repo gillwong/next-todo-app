@@ -4,14 +4,15 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { Dispatch, HTMLAttributes, SetStateAction } from "react";
 
-import { Todo, setTodoCompletion } from "@/lib/todos";
-import { cn } from "@/lib/utils";
-
 import PriorityIndicator from "@/components/priority-indicator";
 import { Checkbox } from "@/components/ui/checkbox";
 
+import { type Todo, type TodoJSON } from "@/server/models/todo";
+import { setTodoCompletion } from "@/utils/todo/services";
+import { cn } from "@/utils/utils";
+
 interface CompletedTodoItemProps extends HTMLAttributes<HTMLElement> {
-  todo: Todo;
+  todo: Todo | TodoJSON;
   setTodos: Dispatch<SetStateAction<Todo[]>>;
 }
 

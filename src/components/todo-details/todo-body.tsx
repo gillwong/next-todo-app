@@ -2,9 +2,9 @@ import { ClassValue } from "clsx";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 
-import { Todo } from "@/lib/todos";
-
 import { Separator } from "@/components/ui/separator";
+
+import type { Todo } from "@/server/models/todo";
 
 dayjs.extend(localizedFormat);
 

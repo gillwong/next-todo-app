@@ -1,9 +1,9 @@
 import { HTMLAttributes, Suspense } from "react";
 
-import { cn } from "@/lib/utils";
-
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+
+import { cn } from "@/utils/utils";
 
 import TodoListBody from "./todo-list-body";
 import TodoListBodyLoading from "./todo-list-body/loading";

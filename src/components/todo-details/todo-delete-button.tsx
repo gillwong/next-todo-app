@@ -3,9 +3,6 @@
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { Todo } from "@/lib/todos";
-import { deleteTodo } from "@/lib/todos";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,14 +17,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
-export default function TodoDeleteButton({ todo }: { todo: Todo }) {
+import type { Todo, TodoJSON } from "@/server/models/todo";
+import todoServices from "@/utils/todo/services";
+
+export default function TodoDeleteButton({ todo }: { todo: Todo | TodoJSON }) {
   const router = useRouter();
   const { toast } = useToast();
 
   async function handleDelete() {
     try {
+      await todoServices.remove(todo.id);
       router.push("/home");
-      await deleteTodo(todo.id);
       router.refresh();
       toast({ description: "Todo deleted successfully." });
     } catch (error) {

@@ -2,11 +2,12 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
 
-import { Todo } from "@/lib/todos";
-import { cn } from "@/lib/utils";
-
 import PriorityIndicator from "@/components/priority-indicator";
 import TodoCheckbox from "@/components/todo-checkbox";
+
+import { Todo } from "@/server/models/todo";
+import { simplify } from "@/utils/todo/utils";
+import { cn } from "@/utils/utils";
 
 interface TodoItemProps extends HTMLAttributes<HTMLElement> {
   todo: Todo;
@@ -19,7 +20,8 @@ export default function TodoItem({ className, todo, ...props }: TodoItemProps) {
       {...props}
     >
       <div className="flex space-x-4 items-center">
-        <TodoCheckbox todo={todo} />
+        {/* Only plain objects can be passed to Client Components from Server Components */}
+        <TodoCheckbox todo={simplify(todo)} />
         <Link
           className="text-sm font-medium hover:underline underline-offset-2"
           href={`/todo/${todo.id}/view`}
