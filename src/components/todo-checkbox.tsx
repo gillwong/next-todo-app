@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Todo, setTodoCompletion } from "@/lib/todos";
@@ -13,6 +14,7 @@ export default function TodoCheckbox({
   className?: string;
   todo: Todo;
 }) {
+  const router = useRouter();
   const [isCompleted, setIsCompleted] = useState(todo.isCompleted);
 
   return (
@@ -22,6 +24,7 @@ export default function TodoCheckbox({
       onClick={() => {
         setTodoCompletion(todo.id, !isCompleted);
         setIsCompleted((state) => !state);
+        router.refresh();
       }}
       checked={isCompleted}
     />
