@@ -23,13 +23,27 @@ export async function GET(
   } catch (error) {
     return NextResponse.json(
       { error: `invalid id format: ${(error as Error).message}` },
-      { status: 400 },
+      {
+        status: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        },
+      },
     );
   }
 
   try {
     const todo = await Todos.getById(id);
-    return NextResponse.json(todo, { status: 200 });
+    return NextResponse.json(todo, {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
   } catch (error) {
     return todoErrorHandler(error);
   }
@@ -43,13 +57,30 @@ export async function PUT(
   try {
     id = getIdParam({ params });
   } catch (error) {
-    return NextResponse.json({ error: "invalid id format" }, { status: 400 });
+    return NextResponse.json(
+      { error: "invalid id format" },
+      {
+        status: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        },
+      },
+    );
   }
 
   const todo = (await request.json()) as Todo;
   try {
     const savedTodo = await Todos.update(id, todo);
-    return NextResponse.json(savedTodo, { status: 200 });
+    return NextResponse.json(savedTodo, {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
   } catch (error) {
     return todoErrorHandler(error);
   }
@@ -63,12 +94,29 @@ export async function DELETE(
   try {
     id = getIdParam({ params });
   } catch (error) {
-    return NextResponse.json({ error: "invalid id format" }, { status: 400 });
+    return NextResponse.json(
+      { error: "invalid id format" },
+      {
+        status: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        },
+      },
+    );
   }
 
   try {
     await Todos.remove(id);
-    return new Response(null, { status: 204 });
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
   } catch (error) {
     return todoErrorHandler(error);
   }
