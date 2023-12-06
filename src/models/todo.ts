@@ -1,9 +1,8 @@
 import dayjs from "dayjs";
-import { RowDataPacket } from "mysql2";
 
 import { Todo } from "@/lib/todos";
 
-import connectToDb from "@/utils/config";
+import { supabase } from "@/utils/config";
 
 export class TodoError extends Error {
   constructor(message: string) {
@@ -12,90 +11,80 @@ export class TodoError extends Error {
   }
 }
 
-function convertSqlTodo(row: RowDataPacket) {
-  const { is_completed, ...other } = row;
-  return {
-    ...other,
-    description: other.description ?? undefined,
-    due: other.due ?? undefined,
-    priority: other.priority !== "" ? other.priority : undefined,
-    isCompleted: is_completed ? true : false,
-  } as Todo;
+function convertTodo(data: any): Todo {
+  const todo = { ...data, isCompleted: data.is_completed };
+  delete todo["is_completed"];
+  return todo;
 }
 
 async function getAll() {
-  const connection = await connectToDb();
   try {
-    const [rows] = await connection.query("SELECT * FROM todos");
-    return (rows as RowDataPacket[]).map((row) => convertSqlTodo(row));
+    const { data, error } = await supabase.from("todos").select();
+    if (error) throw error;
+    return data.map((dt) => convertTodo(dt)) as Todo[];
   } catch (error) {
     throw new TodoError("Failed to select all from todos table");
   }
 }
 
 async function getById(id: number) {
-  const connection = await connectToDb();
   try {
-    const sql = "SELECT * FROM todos WHERE id = ?";
-    const [rows] = await connection.execute(sql, [id]);
-    const row = (rows as RowDataPacket[])[0];
-    return convertSqlTodo(row);
+    const { data, error } = await supabase.from("todos").select().eq("id", id);
+    if (error) throw error;
+    if (data.length === 0) throw new Error("not found");
+    return convertTodo(data[0]) as Todo;
   } catch (error) {
+    if ((error as Error).message === "not found")
+      throw new TodoError("Todo not found in todos table");
     throw new TodoError("Failed to select from todos table");
   }
 }
 
 async function save(todo: Omit<Todo, "id">) {
-  const connection = await connectToDb();
-
   try {
-    const sql =
-      "INSERT INTO todos (title, is_completed, description, due, priority) VALUES (?, ?, ?, ?, ?)";
-    await connection.execute(sql, [
-      todo.title,
-      todo.isCompleted ? 1 : 0,
-      todo.description ?? "",
-      todo.due ? dayjs(todo.due).format("YYYY-MM-DD") : null,
-      todo.priority ?? "",
-    ]);
+    const { data, error } = await supabase
+      .from("todos")
+      .insert({
+        title: todo.title,
+        is_completed: todo.isCompleted ? 1 : 0,
+        description: todo.description ?? "",
+        due: todo.due ? dayjs(todo.due).format("YYYY-MM-DD") : null,
+        priority: todo.priority ?? "",
+      })
+      .select();
+    if (error) throw error;
+    return convertTodo(data[0]) as Todo;
   } catch (error) {
     throw new TodoError("Failed to insert todo into todos table");
   }
-
-  const [rows] = await connection.query("SELECT LAST_INSERT_ID()");
-  const insertId = (rows as RowDataPacket[])[0]["LAST_INSERT_ID()"] as number;
-  const savedTodo = await getById(insertId);
-  return savedTodo;
 }
 
 async function update(id: number, updatedTodo: Omit<Todo, "id">) {
-  const connection = await connectToDb();
-
   try {
-    const sql =
-      "UPDATE todos SET title = ?, description = ?, priority = ?, due = ?, is_completed = ? WHERE id = ?";
-    connection.execute(sql, [
-      updatedTodo.title,
-      updatedTodo.description ?? "",
-      updatedTodo.priority ?? "",
-      updatedTodo.due ? dayjs(updatedTodo.due).format("YYYY-MM-DD") : null,
-      updatedTodo.isCompleted ? 1 : 0,
-      id,
-    ]);
+    const { data, error } = await supabase
+      .from("todos")
+      .update({
+        title: updatedTodo.title,
+        description: updatedTodo.description ?? "",
+        priority: updatedTodo.priority ?? "",
+        due: updatedTodo.due
+          ? dayjs(updatedTodo.due).format("YYYY-MM-DD")
+          : null,
+        is_completed: updatedTodo.isCompleted ? 1 : 0,
+      })
+      .eq("id", id)
+      .select();
+    if (error) throw error;
+    return convertTodo(data[0]) as Todo;
   } catch (error) {
     throw new TodoError("Failed to update todo in todos table");
   }
-
-  const savedTodo = await getById(id);
-  return savedTodo;
 }
 
 async function remove(id: number) {
-  const connection = await connectToDb();
-
   try {
-    const sql = "DELETE FROM todos WHERE id = ?";
-    connection.execute(sql, [id]);
+    const { error } = await supabase.from("todos").delete().eq("id", id);
+    if (error) throw error;
   } catch (error) {
     throw new TodoError("Failed to delete todo from todos table");
   }
