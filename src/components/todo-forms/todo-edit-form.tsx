@@ -58,8 +58,8 @@ export default function EditTodoForm({ todo }: { todo: Todo }) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      router.push("/home");
       await updateTodo(todo.id, values as Omit<Todo, "id">);
+      router.push("/home");
       router.refresh();
       toast({ description: "Todo edited successfully." });
     } catch (error) {

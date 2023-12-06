@@ -56,8 +56,8 @@ export default function TodoCreateForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      router.push("/home");
       await createTodo(values as Omit<Todo, "id">);
+      router.push("/home");
       router.refresh();
       toast({ description: "Todo created successfully." });
     } catch (error) {
