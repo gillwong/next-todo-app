@@ -26,12 +26,13 @@ export const todoSchema = z
 
 export type Todo = z.infer<typeof todoSchema>;
 
-export async function getAllTodos(): Promise<Todo[]> { 
+export async function getAllTodos(): Promise<Todo[]> {
   await fakeLoading();
   try {
     const response = await axios.get(`${baseUrl}/`);
     return response.data as Todo[];
   } catch (error) {
+    console.error({ error });
     throw new Error("Error occurred while getting todos");
   }
 }

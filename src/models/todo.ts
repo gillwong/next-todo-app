@@ -1,7 +1,9 @@
 import dayjs from "dayjs";
-import connectToDb from "@/utils/config";
 import { RowDataPacket } from "mysql2";
+
 import { Todo } from "@/lib/todos";
+
+import connectToDb from "@/utils/config";
 
 export class TodoError extends Error {
   constructor(message: string) {
@@ -25,7 +27,6 @@ async function getAll() {
   const connection = await connectToDb();
   try {
     const [rows] = await connection.query("SELECT * FROM todos");
-    console.log(rows);
     return (rows as RowDataPacket[]).map((row) => convertSqlTodo(row));
   } catch (error) {
     throw new TodoError("Failed to select all from todos table");
@@ -38,7 +39,6 @@ async function getById(id: number) {
     const sql = "SELECT * FROM todos WHERE id = ?";
     const [rows] = await connection.execute(sql, [id]);
     const row = (rows as RowDataPacket[])[0];
-    console.log(row);
     return convertSqlTodo(row);
   } catch (error) {
     throw new TodoError("Failed to select from todos table");

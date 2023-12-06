@@ -7,15 +7,6 @@ import { Separator } from "@/components/ui/separator";
 
 import TodoItem from "../todo-item";
 
-// async function getData(): Promise<Todo[]> {
-//   try {
-//     const res = await getAllTodos();
-//     return res as Todo[];
-//   } catch (error) {
-//     throw new Error((error as Error).message);
-//   }
-// }
-
 export default async function TodoListBody() {
   const todos = (await getAllTodos()).toSorted((a, b) => {
     if (!a.due && !b.due) return 0;
