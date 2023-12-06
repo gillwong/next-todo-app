@@ -1,14 +1,15 @@
 import { notFound } from "next/navigation";
 
 import { Todo } from "@/lib/todos";
-import { getTodo } from "@/lib/todos";
 
 import TodoCheckbox from "@/components/todo-checkbox";
+
+import Todos from "@/models/todo";
 
 export default async function TodoHeader({ todoId }: { todoId: number }) {
   let todo: Todo;
   try {
-    todo = await getTodo(todoId);
+    todo = await Todos.getById(todoId);
   } catch (error) {
     return notFound();
   }

@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 
-import { Todo, getTodo } from "@/lib/todos";
+import { Todo } from "@/lib/todos";
 
 import TodoActions from "@/components/todo-details/todo-actions";
 import TodoBody from "@/components/todo-details/todo-body";
+
+import Todos from "@/models/todo";
 
 export default async function TodoViewPage({
   params,
@@ -15,7 +17,7 @@ export default async function TodoViewPage({
 
   let todo: Todo;
   try {
-    todo = await getTodo(id);
+    todo = await Todos.getById(id);
   } catch (error) {
     return notFound();
   }
